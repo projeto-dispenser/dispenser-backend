@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { enrollPost } from "../controllers/user-controller";
+import { enrollPost, loginPost } from "../controllers/user-controller";
+import { userSchema } from "../schemas/userSchema";
+import { validateBody } from "../middlewares/validation-middleware";
 
 const userRouter = Router();
 
-userRouter.post("/sign-up", enrollPost);
+userRouter.post("/sign-up", validateBody(userSchema), enrollPost);
+userRouter.post("/sign-in", loginPost);
 
 export { userRouter };
