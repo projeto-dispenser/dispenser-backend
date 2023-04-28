@@ -8,6 +8,10 @@ async function findSessionById(userId: number) {
   return prisma.session.findFirst({ where: { userId: userId } });
 }
 
+async function findByUserId(userId: number) {
+  return prisma.user.findFirst({ where: { id: userId } });
+}
+
 async function createUser(email: string, password: string) {
   return prisma?.user.create({ data: { email: email, password: password } });
 }
@@ -19,6 +23,7 @@ async function createSession(token: string, userId: number) {
 const userRepository = {
   findByNameEmail,
   findSessionById,
+  findByUserId,
   createUser,
   createSession,
 };

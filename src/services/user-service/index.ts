@@ -1,7 +1,7 @@
 import { conflictError } from "../../errors/conflict-error";
 import { notFoundError } from "../../errors/not-found-error";
 import { unauthorizedError } from "../../errors/unauthorized-error";
-import { InformationUser } from "../../protocols";
+import { InformationUser, UserId } from "../../protocols";
 import userRepository from "../../repositories/user-repository";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
@@ -41,9 +41,19 @@ async function loginPost(infoUser: InformationUser) {
   return await userRepository.createSession(token, user.id);
 }
 
+async function userDetailsGet(userId: UserId) {
+  const user = await userRepository.findByUserId(userId);
+  if (!user) {
+    throw notFoundError();
+  }
+
+  return user;
+}
+
 const userService = {
   enrollPost,
   loginPost,
+  userDetailsGet,
 };
 
 export default userService;

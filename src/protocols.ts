@@ -7,3 +7,5 @@ export type InformationUser = {
   email: string;
   password: string;
 }
+
+export type UserId = number;

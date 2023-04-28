@@ -33,3 +33,17 @@ export async function loginPost(req: Request, res: Response) {
     return res.status(httpStatus.BAD_REQUEST);
   }
 }
+
+export async function userDetailsGet(req: Request, res: Response) {
+  try {
+    const userId = Number(req.params.userId);
+    const response = await userService.userDetailsGet(userId);
+    return res.status(httpStatus.OK).send(response);
+  } catch (error) {
+    if ((error as Error).name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send((error as Error).message);
+    }
+
+    return res.status(httpStatus.BAD_REQUEST);
+  }
+}
