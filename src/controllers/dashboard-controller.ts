@@ -11,9 +11,23 @@ export async function timePost(req: Request, res: Response) {
       schedule2,
       schedule3,
       schedule4,
-    });   
+    });
     return res.status(httpStatus.CREATED).send(response);
   } catch (error) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
+  }
+}
+
+export async function timeUserGet(req: Request, res: Response) {
+  try {
+    const userId = Number(req.params.userId);
+    const response = await dashboardService.timeUserGet(userId);
+    return res.status(httpStatus.OK).send(response);
+  } catch (error) {
+    if ((error as Error).name === "NotFoundError") {
+      return res.status(httpStatus.NOT_FOUND).send((error as Error).message);
+    }
+
+    return res.status(httpStatus.BAD_REQUEST);
   }
 }

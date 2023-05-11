@@ -37,10 +37,15 @@ async function updateDashboard(
   });
 }
 
+async function findTimeByUserId(userId: number) {
+  return prisma.dashboard.findFirst({ where: { userId: userId } });
+}
+
 const dashboardRepository = {
   findByDashUserId,
   createDashboard,
-  updateDashboard
+  updateDashboard,
+  findTimeByUserId
 };
 
 export default dashboardRepository;

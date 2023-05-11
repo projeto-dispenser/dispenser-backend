@@ -1,4 +1,5 @@
-import { InformationDash } from "../../protocols";
+import { notFoundError } from "../../errors/not-found-error";
+import { InformationDash, UserId } from "../../protocols";
 import dashboardRepository from "../../repositories/dashboard-repository";
 
 async function timePost(infoDash: InformationDash) {
@@ -17,8 +18,18 @@ async function timePost(infoDash: InformationDash) {
   );
 }
 
+async function timeUserGet(userId: UserId) {
+  const user = await dashboardRepository.findTimeByUserId(userId);
+  if (!user) {
+    throw notFoundError();
+  }
+
+  return user;
+}
+
 const dashboardService = {
     timePost,
+    timeUserGet
   };
   
   export default dashboardService;
