@@ -8,10 +8,11 @@ datasource db {
 }
 
 model User {
-  id       Int       @id @default(autoincrement())
-  email    String    @unique @db.VarChar(255)
-  password String    @db.VarChar(255)
-  Session  Session[]
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  Session   Session[]
+  Dashboard Dashboard[]
 }
 
 model Session {
@@ -19,4 +20,14 @@ model Session {
   userId Int
   token  String @unique
   User   User   @relation(fields: [userId], references: [id])
+}
+
+model Dashboard {
+  id        Int    @id @default(autoincrement())
+  userId    Int
+  schedule1 String
+  schedule2 String
+  schedule3 String
+  schedule4 String
+  User      User   @relation(fields: [userId], references: [id])
 }

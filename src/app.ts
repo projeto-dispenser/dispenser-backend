@@ -3,6 +3,7 @@ import cors from "cors";
 import { loadEnv } from "./config/env";
 import { connectDB, disconnectDB } from "./config/database";
 import { userRouter } from "./routers/user-router";
+import { dashboardRouter } from "./routers/dashboard-router";
 
 loadEnv();
 
@@ -12,7 +13,8 @@ app
   .use(cors())
   .use(express.json())
   .get("/test", (_req, res) => res.send("OK!"))
-  .use("/", userRouter);
+  .use("/", userRouter)
+  .use("/time", dashboardRouter);
 
 export async function init(): Promise<Express> {
   connectDB();
@@ -20,7 +22,7 @@ export async function init(): Promise<Express> {
 }
 
 export async function close(): Promise<void> {
-    await disconnectDB();
+  await disconnectDB();
 }
 
 export default app;
