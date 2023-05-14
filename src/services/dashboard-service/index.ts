@@ -3,9 +3,11 @@ import { InformationDash, UserId } from "../../protocols";
 import dashboardRepository from "../../repositories/dashboard-repository";
 
 async function timePost(infoDash: InformationDash) {
-  const existDashboard = await dashboardRepository.findByDashUserId(infoDash.userId);
-  console.log(existDashboard)
-  if(existDashboard){
+  const existDashboard = await dashboardRepository.findByDashUserId(
+    infoDash.userId
+  );
+  console.log(existDashboard);
+  if (existDashboard) {
     return dashboardRepository.updateDashboard(existDashboard.id, infoDash);
   }
 
@@ -19,17 +21,27 @@ async function timePost(infoDash: InformationDash) {
 }
 
 async function timeUserGet(userId: UserId) {
-  const user = await dashboardRepository.findTimeByUserId(userId);
-  if (!user) {
+  const timeUser = await dashboardRepository.findTimeByUserId(userId);
+  if (!timeUser) {
     throw notFoundError();
   }
 
-  return user;
+  return timeUser;
+}
+
+async function timeGet() {
+  const timeUser = await dashboardRepository.findTime();
+  if (!timeUser) {
+    throw notFoundError();
+  }
+
+  return timeUser;
 }
 
 const dashboardService = {
-    timePost,
-    timeUserGet
-  };
-  
-  export default dashboardService;
+  timePost,
+  timeUserGet,
+  timeGet
+};
+
+export default dashboardService;

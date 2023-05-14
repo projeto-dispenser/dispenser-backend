@@ -41,11 +41,16 @@ async function findTimeByUserId(userId: number) {
   return prisma.dashboard.findFirst({ where: { userId: userId } });
 }
 
+async function findTime() {
+  return prisma.dashboard.findMany();
+}
+
 const dashboardRepository = {
   findByDashUserId,
   createDashboard,
   updateDashboard,
-  findTimeByUserId
+  findTimeByUserId,
+  findTime
 };
 
 export default dashboardRepository;

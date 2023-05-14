@@ -15,6 +15,14 @@ async function enrollPost(infoUser: InformationUser) {
     throw conflictError();
   }
 
+  const availableID = await userRepository.findAvailableId();
+  if (availableID) {
+    const { id } = availableID;
+    await userRepository.deleteAvailableId(id);
+    const hashedPassword = await bcrypt.hash(infoUser.password, 12);
+    return userRepository.createUserWithId(id, infoUser.email, hashedPassword);
+  }
+
   const hashedPassword = await bcrypt.hash(infoUser.password, 12);
   return userRepository.createUser(infoUser.email, hashedPassword);
 }
@@ -50,10 +58,23 @@ async function userDetailsGet(userId: UserId) {
   return user;
 }
 
+async function deleteUser(userId: UserId) {
+  const user = await userRepository.findByUserId(userId);
+  if (user) {
+    await userRepository.deleteUserById(userId);
+    await userRepository.createAvailableId(userId);
+  } else {
+    throw notFoundError();
+  }
+
+  return user;
+}
+
 const userService = {
   enrollPost,
   loginPost,
   userDetailsGet,
+  deleteUser,
 };
 
 export default userService;
