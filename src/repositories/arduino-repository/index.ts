@@ -1,11 +1,15 @@
 import { prisma } from "../../config/database";
 
 async function createDataArduino(
-  temperatura: number
+  temperatura: number,
+  data: string,
+  hora: string
 ) {
   return prisma.dataArduino.create({
     data: {
       temperatura: temperatura,
+      data: data,
+      hora: hora
     },
   });
 }

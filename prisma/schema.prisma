@@ -37,6 +37,8 @@ model AvailableId {
 }
 
 model DataArduino {
-  id          Int   @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
+  data        String
+  hora        String
   temperatura Float
 }

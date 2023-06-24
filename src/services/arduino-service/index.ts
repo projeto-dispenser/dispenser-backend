@@ -4,7 +4,9 @@ import arduinoRepository from "../../repositories/arduino-repository";
 
 async function dataPost(infoArd: InformationArd) {
   return arduinoRepository.createDataArduino(
-    infoArd.temperatura
+    infoArd.temperatura,
+    infoArd.data,
+    infoArd.hora
   );
 }
 

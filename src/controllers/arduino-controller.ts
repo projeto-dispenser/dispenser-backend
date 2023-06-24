@@ -3,10 +3,12 @@ import httpStatus from "http-status";
 import arduinoService from "../services/arduino-service";
 
 export async function dataPost(req: Request, res: Response) {
-  const { temperatura } = req.body;
+  const { temperatura, data, hora } = req.body;
   try {
     const response = await arduinoService.dataPost({
-      temperatura: parseFloat(temperatura),
+      temperatura: temperatura,
+      data: data,
+      hora: hora,
     });
     return res.status(httpStatus.CREATED).send(response);
   } catch (error) {

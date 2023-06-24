@@ -20,4 +20,6 @@ export type InformationDash = {
 
 export type InformationArd = {
   temperatura: number;
+  data: string;
+  hora: string;
 }
