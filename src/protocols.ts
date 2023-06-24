@@ -17,3 +17,7 @@ export type InformationDash = {
   schedule3: string;
   schedule4: string;
 };
+
+export type InformationArd = {
+  temperatura: number;
+}

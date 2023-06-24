@@ -6,7 +6,6 @@ async function timePost(infoDash: InformationDash) {
   const existDashboard = await dashboardRepository.findByDashUserId(
     infoDash.userId
   );
-  console.log(existDashboard);
   if (existDashboard) {
     return dashboardRepository.updateDashboard(existDashboard.id, infoDash);
   }

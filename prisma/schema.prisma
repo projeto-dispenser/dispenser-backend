@@ -35,3 +35,8 @@ model Dashboard {
 model AvailableId {
   id Int @id
 }
+
+model DataArduino {
+  id          Int   @id @default(autoincrement())
+  temperatura Float
+}
